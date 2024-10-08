@@ -9,6 +9,16 @@
             //Task4();
         }
 
+        /*static char ToCS(int d)
+        {
+            if (d > 9)
+            {
+                d += 55;
+                return (char)d;
+            }
+            return (char)d;
+        }*/
+
         /// <summary>
         /// III. Рекурсивный метод, возвращающий значение
         /// 13) для перевода числа из десятичной системы счисления в p-ичную систему счисления (p>1, p≠10)
@@ -24,14 +34,22 @@
             string DecConv_Rec(int d, int p)
             {
                 Console.Out.WriteLine($"Вызов DecConv_Rec({d}, {p})");
-                if (d == 1)
+                if (d < p)
                 {
-                    return "1" + s;
+                    if (d > 9)
+                    {
+                        return (char)(d + 55) + s;
+                    }
+                    else return d + s;
                 }
                 else
                 {
-                    //Console.Out.WriteLine($"Остаток = {d % p}, целое = {d / p}");
-                    s = d % p + s;
+                    Console.Out.WriteLine($"Остаток = {d % p}, целое = {d / p}");
+                    if (d % p > 9)
+                    {
+                        s = (char)(d % p + 55) + s;
+                    }
+                    else s = d % p + s;
                     d /= p;
                     return DecConv_Rec(d, p);
                 }
