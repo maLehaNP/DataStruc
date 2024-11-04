@@ -14,9 +14,8 @@
              * сообщения разделяются пробелами и знаками препинания.
              * 13. Найти самое короткое слово сообщения.
              */
-            string str = "Златая цепь на дубе том: И днём и ночью кот учёный Всё ходит по цепи кругом; Идёт направо - песнь заводит, Налево - сказку говорит.";
-            Console.WriteLine(str);
-            char[] div = { ' ', ':', ';', '-', ',', '.' };
+            string str = "Златая цепь на дубе том: днём ночью кот учёный Всё ходит по цепи кругом; Идёт направо - песнь заводит, Налево - сказку говорит.";
+            char[] div = { ' ', ':', ';', '-', ',', '.', '?', '!', '"', '(', ')' };
             String[] strSp = str.Split(div, StringSplitOptions.RemoveEmptyEntries);
             int strMinLen = strSp[0].Length;
             int strMinIndex = 0;
@@ -28,7 +27,7 @@
                     strMinIndex = i;
                 }
             }
-            Console.WriteLine(strSp[strMinIndex]);
+            Console.WriteLine($"Самое короткое слово: {strSp[strMinIndex]}");
         }
     }
 }
