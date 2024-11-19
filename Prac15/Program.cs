@@ -17,17 +17,28 @@ namespace Prac15
             /* 13. Вывести на экран в порядке возрастания все элементы, меньшие заданного числа,
              * увеличив их в три раза.
              */
-            var array = Read().ToArray();
+            int[] array = ReadInts();
+
             Console.Write("Введите число: ");
             int digit = int.Parse(Console.In.ReadLine());
+
             var newArray =
                 from n in array
                 where n < digit
                 orderby n
                 select n * 3;
+
+            using (StreamWriter fileOut = new StreamWriter(@"output1.txt"))
+            {
+                foreach (int elem in newArray)
+                {
+                    Console.WriteLine(elem);
+                    fileOut.WriteLine(elem);
+                }
+            }
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Создает массив из объектов в строках файла и возвращает ссылку на него.
         /// </summary>
         static public ArrayList Read()
@@ -39,7 +50,7 @@ namespace Prac15
                 while ((line = fileIn.ReadLine()) != null) array.Add(int.Parse(line));
                 return array;
             }
-        }
+        }*/
 
         /// <summary>
         /// Создает массив из объектов в строках файла и возвращает ссылку на него.
@@ -52,13 +63,13 @@ namespace Prac15
                 int[] array = new int[n];
                 for (int i = 0; i < n; i++)
                 {
-                    array[i] = int.Parse(fileIn.ReadLine()));
+                    array.SetValue(int.Parse(fileIn.ReadLine()), i);
                 }
                 return array;
             }
         }
 
-        static public void Write(ArrayList array)
+        /*static public void WriteInts(int[] array)
         {
             using (StreamWriter fileOut = new StreamWriter(@"output1.txt"))
             {
@@ -68,6 +79,6 @@ namespace Prac15
                     fileOut.WriteLine(elem);
                 }
             }
-        }
+        }*/
     }
 }
