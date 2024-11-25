@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Threading;
+using System;
+using System.Linq;
 
 namespace Prac15
 {
@@ -17,8 +19,15 @@ namespace Prac15
             /* 13. Вывести на экран в порядке возрастания все элементы, меньшие заданного числа,
              * увеличив их в три раза.
              */
-            int[] array = ReadInts();
-
+            using (StreamReader fileIn = new StreamReader(@"input.txt"))
+            {
+                int n = int.Parse(fileIn.ReadLine());
+                int[] array = new int[n];
+                for (int i = 0; i < n; i++)
+                {
+                    array[i] = int.Parse(fileIn.ReadLine());
+                }
+            }
             Console.Write("Введите число: ");
             int digit = int.Parse(Console.In.ReadLine());
 
