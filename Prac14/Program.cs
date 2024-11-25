@@ -179,8 +179,8 @@ namespace Prac14
                 {
                     if (passenger.AvgWeight() > maxWeight)
                     {
-                        Console.WriteLine(passenger.fullName + " " + passenger.amount + " " + passenger.totalWeight + passenger.AvgWeight());
-                        fileOut.WriteLine(passenger.fullName + " " + passenger.amount + " " + passenger.totalWeight);
+                        Console.WriteLine(passenger.ToString() + passenger.AvgWeight());
+                        fileOut.WriteLine(passenger.fullName + ";" + passenger.amount + ";" + passenger.totalWeight);
                     }
                 }
             }
