@@ -28,7 +28,7 @@ namespace Prac15
                 orderby n
                 select n * 3;
 
-            using (StreamWriter fileOut = new StreamWriter(@"output1.txt"))
+            using (StreamWriter fileOut = new StreamWriter(@"output.txt"))
             {
                 foreach (int elem in newArray)
                 {
@@ -57,13 +57,13 @@ namespace Prac15
         /// </summary>
         static public int[] ReadInts()
         {
-            using (StreamReader fileIn = new StreamReader(@"input1.txt"))
+            using (StreamReader fileIn = new StreamReader(@"input.txt"))
             {
                 int n = int.Parse(fileIn.ReadLine());
                 int[] array = new int[n];
                 for (int i = 0; i < n; i++)
                 {
-                    array.SetValue(int.Parse(fileIn.ReadLine()), i);
+                    array[i] = int.Parse(fileIn.ReadLine());
                 }
                 return array;
             }
