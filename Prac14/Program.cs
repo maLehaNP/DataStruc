@@ -4,57 +4,54 @@ namespace Prac14
 {
     struct SPoint
     {
-        public int x, y;
+        public int X { get; set; }
+        public int Y { get; set; }
         public SPoint(int x, int y)
         {
-            this.x = x;
-            this.y = y;
+            this.X = x;
+            this.Y = y;
         }
 
         public double DistanceTo(SPoint obj)
         {
-            return Math.Sqrt(Math.Pow(x - obj.x, 2) + Math.Pow(y - obj.y, 2));
+            return Math.Sqrt(Math.Pow(X - obj.X, 2) + Math.Pow(Y - obj.Y, 2));
         }
 
         public override string ToString()
         {
-            return "(" + x + ", " + y + ")";
+            return "(" + X + ", " + Y + ")";
         }
     }
 
     struct SPassenger : IComparable<SPassenger>
     {
-        public string fullName;
-        public int amount;
-        public int totalWeight;
+        public string FullName { get; set; }
+        public int Amount { get; set; }
+        public int TotalWeight { get; set; }
 
         public SPassenger(string fullName, int amount, int totalWeight)
         {
-            this.fullName = fullName;
-            this.amount = amount;
-            this.totalWeight = totalWeight;
+            this.FullName = fullName;
+            this.Amount = amount;
+            this.TotalWeight = totalWeight;
         }
 
-        public double AvgWeight()
+        public double AvgWeight
         {
-            return totalWeight / amount;
+            get
+            {
+                return TotalWeight / Amount;
+            }
         }
 
         public override string ToString()
         {
-            return "(" + fullName + ", " + amount + ", " + totalWeight + ")";
+            return "(" + FullName + ", " + Amount + ", " + TotalWeight + ")";
         }
-
-        /*public int CompareTo(SPassenger other)
-        {
-            return amount.CompareTo(other.amount);
-        }*/
 
         public int CompareTo(SPassenger other)
         {
-            if (this.amount == other.amount) return 0;
-            if (this.amount > other.amount) return 1;
-            return -1;
+            return this.Amount.CompareTo(other.Amount);
         }
     }
 
@@ -83,20 +80,43 @@ namespace Prac14
         /// Создает массив из объектов в строках файла и возвращает ссылку на него.
         /// </summary>
         /// <returns></returns>
-        static public ArrayList InputSPassenger()
+        static public SPassenger[] InputSPassenger()
         {
             using (StreamReader fileIn = new StreamReader(@"input2.txt"))
             {
-                ArrayList array = new ArrayList();
-                string line;
-                while ((line = fileIn.ReadLine()) != null)
+                int n = int.Parse(fileIn.ReadLine());
+                SPassenger[] array = new SPassenger[n];
+                for (int i = 0; i < n; i++)
                 {
-                    string[] obj = line.Split(';');
-                    Print1D<string>(obj);
-                    array.Add(new SPassenger(obj[0], int.Parse(obj[1]), int.Parse(obj[2])));
+                    string[] obj = fileIn.ReadLine().Split(';');
+                    array[i] = new SPassenger(obj[0], int.Parse(obj[1]), int.Parse(obj[2]));
                 }
                 return array;
             }
+        }
+
+        /// <summary>
+        /// Выводит одномерный массив элеметов типа T.
+        /// </summary>
+        static void Print1D<T>(T[] a)
+        {
+            for (int i = 0; i < a.GetLength(0); i++)
+            {
+                Console.WriteLine("{0} ", a[i]);
+            }
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Выводит arrayList элеметов типа T.
+        /// </summary>
+        static void PrintArray<T>(ArrayList array)
+        {
+            foreach (T elem in array)
+            {
+                Console.WriteLine("{0} ", elem);
+            }
+            Console.WriteLine();
         }
 
         static void Task1()
@@ -104,7 +124,6 @@ namespace Prac14
             // 13–14. Найти такую точку, сумма расстояний от которой до остальных точек множества максимальна.
             ArrayList array = InputSPoint();
             PrintArray<SPoint>(array);
-
             double maxDistSum = 0;
             ArrayList arrayMax = new ArrayList();
             foreach (SPoint point1 in array)
@@ -129,34 +148,10 @@ namespace Prac14
             {
                 foreach (SPoint point in arrayMax)
                 {
-                    Console.WriteLine(point.x + " " + point.y);
-                    fileOut.WriteLine(point.x + " " + point.y);
+                    Console.WriteLine(point.X + " " + point.Y);
+                    fileOut.WriteLine(point.X + " " + point.Y);
                 }
             }
-        }
-
-        /// <summary>
-        /// Выводит одномерный массив элеметов типа T.
-        /// </summary>
-        static void Print1D<T>(T[] a)
-        {
-            for (int i = 0; i < a.GetLength(0); i++)
-            {
-                Console.Write("{0} ", a[i]);
-            }
-            Console.WriteLine();
-        }
-
-        /// <summary>
-        /// Выводит arrayList элеметов типа T.
-        /// </summary>
-        static void PrintArray<T>(ArrayList array)
-        {
-            foreach (T elem in array)
-            {
-                Console.Write("{0} ", elem);
-            }
-            Console.WriteLine();
         }
 
         static void Task2()
@@ -168,19 +163,19 @@ namespace Prac14
              * превышает заданный, отсортировав их по количеству вещей, сданных в камеру
              * хранения.
              */
-            ArrayList array = InputSPassenger();
-            PrintArray<SPassenger>(array);
-            array.Sort();
+            SPassenger[] array = InputSPassenger();
+            Print1D<SPassenger>(array);
+            Array.Sort(array);
             using (StreamWriter fileOut = new StreamWriter(@"output2.txt"))
             {
                 Console.Out.Write("Введите вес: ");
                 int maxWeight = int.Parse(Console.ReadLine());
                 foreach (SPassenger passenger in array)
                 {
-                    if (passenger.AvgWeight() > maxWeight)
+                    if (passenger.AvgWeight > maxWeight)
                     {
-                        Console.WriteLine(passenger.ToString() + passenger.AvgWeight());
-                        fileOut.WriteLine(passenger.fullName + ";" + passenger.amount + ";" + passenger.totalWeight);
+                        Console.WriteLine(passenger.ToString() + " AvgWeight: " + passenger.AvgWeight);
+                        fileOut.WriteLine(passenger.FullName + ";" + passenger.Amount + ";" + passenger.TotalWeight);
                     }
                 }
             }
@@ -188,8 +183,8 @@ namespace Prac14
 
         static void Main(string[] args)
         {
-            //Task1();
-            Task2();
+            Task1();
+            //Task2();
         }
     }
 }
