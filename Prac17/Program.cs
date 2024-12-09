@@ -11,14 +11,14 @@
             public Rectangle() { }
             public Rectangle(int a, int b)
             {
-                if (a <= 0 || b <= 0) throw new ArgumentException();
-                this.a = a;
-                this.b = b;
+                //if (a <= 0 || b <= 0) throw new ArgumentException();
+                A = a;
+                B = b;
             }
             public Rectangle(Rectangle rectangle)
             {
-                a = rectangle.A;
-                b = rectangle.B;
+                A = rectangle.A;
+                B = rectangle.B;
             }
 
             // Свойства
@@ -92,8 +92,8 @@
             public void Scale(int coef)
             {
                 if (coef <= 0) throw new ArgumentException();
-                a = a * coef;
-                b = b * coef;
+                A = a * coef;
+                B = b * coef;
             }
 
             // Перегрузки методов Object
@@ -101,34 +101,116 @@
             {
                 return "(" + a + ", " + b + ")";
             }
-            //public override string GetHashCode()
-            //{
-
-            //}
+            public override int GetHashCode()
+            {
+                return a.GetHashCode() + b.GetHashCode();
+            }
             public bool Equals(Rectangle obj)
             {
-                if (a == obj.A && b == obj.B) return true;
-                return false;
+                if (this == obj) return true;
+                if (obj == null || GetType() != obj.GetType()) return false;
+                return a.Equals(obj.A) && b.Equals(obj.B);
             }
-            public static new string GetType()
+            /*public static new string GetType()
             {
                 return "Rectangle";
-            }
+            }*/
 
             // Перегрузки операций
             public static Rectangle operator ++(Rectangle m)
             {
-                return
+                Rectangle temp = new Rectangle(m);
+                temp.A += 1;
+                temp.B += 1;
+                return temp;
+            }
+            public static Rectangle operator --(Rectangle m)
+            {
+                Rectangle temp = new Rectangle(m);
+                temp.A += 1;
+                temp.B += 1;
+                return temp;
+            }
+            public static bool operator true(Rectangle m)
+            {
+                //return m.IsSquare;
+                if (!m.IsSquare) return false;
+                return true;
+            }
+            public static bool operator false(Rectangle m)
+            {
+                if (m.IsSquare) return true;
+                return false;
+            }
+            public static Rectangle operator *(Rectangle m, int a)
+            {
+                Rectangle temp = new Rectangle(m);
+                temp.A *= a;
+                temp.B *= a;
+                return temp;
+            }
+            public static Rectangle operator *(int a, Rectangle m)
+            {
+                return m * a;
             }
         }
         static void Main(string[] args)
         {
-            Rectangle rect = new Rectangle();
-            int a = 1;
-            int b = 2;
+            // Конструкторы
+            Console.WriteLine("// Конструкторы");
+            Rectangle rect1 = new Rectangle();
+            Rectangle rect2 = new Rectangle(1, 2);
+            Rectangle rect3 = new Rectangle(rect2);
+            Console.WriteLine("Rectangle 1: " + rect1);
+            Console.WriteLine("Rectangle 2: " + rect2);
+            Console.WriteLine("Rectangle 3: " + rect3);
+            Console.WriteLine("");
 
-            Console.WriteLine(rect.GetHashCode());
-            
+            // Поля
+            Console.WriteLine("// Поля");
+            Console.WriteLine("Rectangle 2 A: " + rect2.A);
+            Console.WriteLine("");
+
+            // Методы
+            Console.WriteLine("// Методы");
+            Console.WriteLine("Rectangle 2 Perimeter: " + rect2.Perimeter());
+            Console.WriteLine("Rectangle 2 Area: " + rect2.Area());
+            rect2.Scale(2);
+            Console.WriteLine("Rectangle 2 A: " + rect2);
+            Console.WriteLine("");
+
+            // Перегрузки методов Object
+            Console.WriteLine("// Перегрузки методов Object");
+            Console.WriteLine("Rectangle 2 ToString: " + rect2);
+            Console.WriteLine("Rectangle 2 GetHashCode: " + rect2.GetHashCode());
+            Console.WriteLine("Rectangle 2 Equals Rectangle 3: " + rect2.Equals(rect3));
+            Console.WriteLine("");
+
+            // Свойства
+            Console.WriteLine("// Свойства");
+            Console.WriteLine("Rectangle 2 A: " + rect2.A);
+            rect2.A = 5;
+            Console.WriteLine("Rectangle 2: " + rect2);
+            Console.WriteLine("Rectangle 2 IsSquare: " + rect2.IsSquare);
+            Console.WriteLine("");
+
+            // Индексатор
+            Console.WriteLine("// Индексатор");
+            Console.WriteLine("Rectangle 2 [0]: " + rect2[0]);
+            rect2[0] = 6;
+            Console.WriteLine("Rectangle 2: " + rect2);
+            Console.WriteLine("");
+
+            // Перегрузки операций
+            Console.WriteLine("// Перегрузки операций");
+            Console.WriteLine("Rectangle 2: " + rect2);
+            rect2++;
+            Console.WriteLine("Rectangle 2 ++: " + rect2);
+            if (rect2) Console.WriteLine("Rectangle 2 is true");
+            else Console.WriteLine("Rectangle 2 is false");
+            rect2 *= 2;
+            Console.WriteLine("Rectangle 2 *: " + rect2);
+            Console.WriteLine("");
         }
     }
 }
