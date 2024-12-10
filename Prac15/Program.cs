@@ -73,14 +73,17 @@ namespace Prac15
             {
                 int n = int.Parse(fileIn.ReadLine());
                 int[] array = new int[n];
-                for (int i = 0; i < n; i++)
-                {
-                    array[i] = int.Parse(fileIn.ReadLine());
+                char[] divs = { ';', ',', ' ' };
+                string line;
+                while ((line = fileIn.ReadLine()) != null) {
+                    string[] sp = line.Split(divs);
+                    for (int i = 0; i < n; i++) {
+                        array[i] = int.Parse(sp[i]);
+                    }
                 }
                 return array;
             }
         }
-
 
         public static void Task2()
         {

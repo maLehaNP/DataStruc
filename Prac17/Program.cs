@@ -8,10 +8,12 @@
             private int b;
 
             // Конструкторы
-            public Rectangle() { }
+            public Rectangle() {
+                A = 1;
+                B = 1;
+            }
             public Rectangle(int a, int b)
             {
-                //if (a <= 0 || b <= 0) throw new ArgumentException();
                 A = a;
                 B = b;
             }
@@ -56,8 +58,7 @@
                         if (i == 1) return b;
                         else
                         {
-                            Console.WriteLine("Недопустимый индекс");
-                            return 0;
+                            throw new ArgumentOutOfRangeException();
                         }
                     }
                 }
@@ -75,7 +76,7 @@
                             if (value <= 0) throw new ArgumentException();
                             b = value;
                         }
-                        else Console.WriteLine("Недопустимый индекс");
+                        else throw new ArgumentOutOfRangeException();
                     }
                 }
             }
@@ -109,7 +110,7 @@
             {
                 if (this == obj) return true;
                 if (obj == null || GetType() != obj.GetType()) return false;
-                return a.Equals(obj.A) && b.Equals(obj.B);
+                return a.Equals(obj.A) && b.Equals(obj.B) || a.Equals(obj.B) && b.Equals(obj.A);
             }
             /*public static new string GetType()
             {
@@ -119,21 +120,14 @@
             // Перегрузки операций
             public static Rectangle operator ++(Rectangle m)
             {
-                Rectangle temp = new Rectangle(m);
-                temp.A += 1;
-                temp.B += 1;
-                return temp;
+                return new Rectangle(m.A + 1, m.B + 1);
             }
             public static Rectangle operator --(Rectangle m)
             {
-                Rectangle temp = new Rectangle(m);
-                temp.A += 1;
-                temp.B += 1;
-                return temp;
+                return new Rectangle(m.A - 1, m.B - 1);
             }
             public static bool operator true(Rectangle m)
             {
-                //return m.IsSquare;
                 if (!m.IsSquare) return false;
                 return true;
             }
@@ -144,10 +138,11 @@
             }
             public static Rectangle operator *(Rectangle m, int a)
             {
-                Rectangle temp = new Rectangle(m);
-                temp.A *= a;
-                temp.B *= a;
-                return temp;
+                return new Rectangle(m.A * a, m.B * a);
+                //Rectangle temp = new Rectangle(m);
+                //temp.A *= a;
+                //temp.B *= a;
+                //return temp;
             }
             public static Rectangle operator *(int a, Rectangle m)
             {
@@ -184,6 +179,8 @@
             Console.WriteLine("Rectangle 2 ToString: " + rect2);
             Console.WriteLine("Rectangle 2 GetHashCode: " + rect2.GetHashCode());
             Console.WriteLine("Rectangle 2 Equals Rectangle 3: " + rect2.Equals(rect3));
+            Rectangle rect4 = new Rectangle(rect2.B, rect2.A);
+            Console.WriteLine("Rectangle 2 Equals Rectangle 4: " + rect2.Equals(rect4));
             Console.WriteLine("");
 
             // Свойства
@@ -209,6 +206,8 @@
             if (rect2) Console.WriteLine("Rectangle 2 is true");
             else Console.WriteLine("Rectangle 2 is false");
             rect2 *= 2;
+            Console.WriteLine("Rectangle 2 *: " + rect2);
+            rect2 = 2 * rect2;
             Console.WriteLine("Rectangle 2 *: " + rect2);
             Console.WriteLine("");
         }
