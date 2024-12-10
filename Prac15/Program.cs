@@ -79,7 +79,10 @@ namespace Prac15
                 while ((line = fileIn.ReadLine()) != null) {
                     string[] sp = line.Split(divs);
                     foreach(string item in sp) {
-                        array[i] = int.Parse(item);
+                        try
+                        {
+                            array[i] = int.Parse(item);
+                        } catch (FormatException) { }
                         i++;
                     }
                 }

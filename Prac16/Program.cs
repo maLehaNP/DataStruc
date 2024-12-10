@@ -68,9 +68,21 @@ namespace Prac16
             {
                 int n = int.Parse(fileIn.ReadLine());
                 int[] array = new int[n];
-                for (int i = 0; i < n; i++)
+                char[] divs = { ';', ',', ' ' };
+                string line;
+                int i = 0;
+                while ((line = fileIn.ReadLine()) != null)
                 {
-                    array.SetValue(int.Parse(fileIn.ReadLine()), i);
+                    string[] sp = line.Split(divs);
+                    foreach (string item in sp)
+                    {
+                        try
+                        {
+                            array[i] = int.Parse(item);
+                        }
+                        catch (FormatException) { }
+                        i++;
+                    }
                 }
                 return array;
             }
