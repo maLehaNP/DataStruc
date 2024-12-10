@@ -75,10 +75,12 @@ namespace Prac15
                 int[] array = new int[n];
                 char[] divs = { ';', ',', ' ' };
                 string line;
+                int i = 0;
                 while ((line = fileIn.ReadLine()) != null) {
                     string[] sp = line.Split(divs);
-                    for (int i = 0; i < n; i++) {
-                        array[i] = int.Parse(sp[i]);
+                    foreach(string item in sp) {
+                        array[i] = int.Parse(item);
+                        i++;
                     }
                 }
                 return array;
