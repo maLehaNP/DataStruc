@@ -37,29 +37,28 @@ namespace Prac20
                 string[] data = line.Split(sep);
                 foreach (string item in data)
                 {
-                    if (!item.Equals(" "))
+                    if (!string.IsNullOrEmpty(item))
                     {
-                        Console.WriteLine(item);
+                        list.AddEnd(int.Parse(item));
                     }
-                    
                 }
-                /*foreach (string item in data)
-                {
-                    list.AddEnd(int.Parse(item));
-                }*/
             }
-
             list.Show();
-
-            /*Console.WriteLine("Hello World!");
             using (StreamWriter fileOut = new StreamWriter(@"output.txt"))
             {
-                foreach (int elem in newInts)
-                {
-                    Console.WriteLine(elem);
-                    fileOut.WriteLine(elem);
-                }
-            }*/
+                fileOut.WriteLine(list.ToString());
+            }
+
+            Console.Write("Введите x: ");
+            int x = int.Parse(Console.ReadLine());
+            Console.WriteLine("Среднее арифметическое списка: " + list.Mean());
+            list.doTask(x);
+
+            list.Show(); //выводим измененные данные из списка на экран
+            using (StreamWriter fileOut = new StreamWriter(@"output.txt", true))
+            {
+                fileOut.WriteLine(list.ToString());
+            }
         }
     }
 }

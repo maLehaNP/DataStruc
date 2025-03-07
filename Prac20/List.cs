@@ -192,5 +192,47 @@ namespace Prac20
             }
             Console.WriteLine();
         }
+
+        public double Mean()
+        {
+            Node r = head;
+            int sum = 0;
+            int count = 0;
+            while (r != null)
+            {
+                sum += (int)r.Inf;
+                count++;
+                r = r.Next;
+            }
+            return sum / count;
+        }
+
+        public void doTask(int x)
+        {
+            Node r = head;
+            double mean = Mean();
+            while (r != null)
+            {
+                if (r.Next != null && (int)r.Next.Inf > mean)
+                {
+                    Node p = new Node(x);
+                    p.Next = r.Next;
+                    r.Next = p;
+                    r = p.Next;
+                } else r = r.Next;
+            }
+        }
+
+        public override string ToString()
+        {
+            Node r = head;
+            string stroke = "";
+            while (r != null)
+            {
+                stroke += r.Inf.ToString() + " ";
+                r = r.Next;
+            }
+            return stroke;
+        }
     }
 }
