@@ -154,6 +154,24 @@ namespace Prac21
                     }
                 }
             }
+
+            // Возвращает сумму значений узлов в дереве, имеющих только одно правое поддерево
+            public static object OnlyRigthSum(Node r, object sum)
+            {
+                if (r != null)
+                {
+                    Console.WriteLine("{0} ", r.inf);
+                    if (r.rigth != null && r.left == null)
+                    {
+                        Console.WriteLine("{0} имеет только одно правое поддерево", r.inf);
+                        sum = (int)sum + (int)r.inf;
+                    }
+                    OnlyRigthSum(r.left, sum);
+                    OnlyRigthSum(r.rigth, sum);
+                }
+                return sum;
+            }
+
         }  // конец вложенного класса
 
         Node tree;  // ссылка на корень дерева
@@ -210,9 +228,9 @@ namespace Prac21
         }
 
         // Возвращает сумму значений узлов в дереве, имеющих только одно правое поддерево
-        public static int OnlyRigthSum()
+        public object OnlyRigthSum()
         {
-            return 0;
+            return Node.OnlyRigthSum(tree, 0);
         }
     }
 }
