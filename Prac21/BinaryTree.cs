@@ -160,14 +160,39 @@ namespace Prac21
             {
                 if (r != null)
                 {
-                    Console.WriteLine("{0} ", r.inf);
-                    if (r.rigth != null && r.left == null)
+                    if (r.left != null)
                     {
+                        sum = (int)sum + (int)OnlyRigthSum(r.left, sum);
+                    }
+                    else if (r.rigth != null)
+                    {
+                        sum = (int)sum + (int)OnlyRigthSum(r.left, sum);
                         Console.WriteLine("{0} имеет только одно правое поддерево", r.inf);
                         sum = (int)sum + (int)r.inf;
                     }
-                    OnlyRigthSum(r.left, sum);
-                    OnlyRigthSum(r.rigth, sum);
+                    Console.WriteLine("{0} sum={1}", r.inf, sum);
+                }
+                return sum;
+            }
+
+            // Возвращает сумму узлов с четным значением, расположенных на k-ом уровне
+            public static object LevelSum(Node r, int level, int curLevel, object sum)
+            {
+                if (r != null)
+                {
+                    if (curLevel == level)
+                    {
+                        if ((int)r.inf % 2 == 0)
+                        {
+                            Console.WriteLine("{0} на уровне {1} четное", r.inf, curLevel);
+                            sum = (int)sum + (int)r.inf;
+                        }
+                        return sum;
+                    }
+                    else
+                    {
+                        sum = (int)LevelSum(r.left, level, curLevel++, sum) + (int)LevelSum(r.rigth, level, curLevel++, sum);
+                    }
                 }
                 return sum;
             }
