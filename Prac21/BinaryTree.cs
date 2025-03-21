@@ -160,14 +160,15 @@ namespace Prac21
             {
                 if (r != null)
                 {
+                    Console.WriteLine("{0} ", r.inf);
                     if (r.left != null)
                     {
                         sum = (int)sum + (int)OnlyRigthSum(r.left, sum);
                     }
                     else if (r.rigth != null)
                     {
-                        sum = (int)sum + (int)OnlyRigthSum(r.left, sum);
-                        Console.WriteLine("{0} имеет только одно правое поддерево", r.inf);
+                        Console.WriteLine("имеет только правое поддерево");
+                        sum = (int)sum + (int)OnlyRigthSum(r.rigth, sum);
                         sum = (int)sum + (int)r.inf;
                     }
                     Console.WriteLine("{0} sum={1}", r.inf, sum);

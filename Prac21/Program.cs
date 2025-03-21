@@ -35,12 +35,19 @@ namespace Prac21
              */
 
             BinaryTree tree1 = ReadTree("input1.txt");
+            BinaryTree tree2 = ReadTree("input2.txt");
+            BinaryTree tree3 = ReadTree("input3.txt");
+            BinaryTree tree4 = ReadTree("input4.txt");
+
             tree1.Preorder();
             Console.WriteLine();
             Console.WriteLine("Сумма = {0}", tree1.OnlyRigthSum());
+            Console.WriteLine();
 
-            
-
+            tree4.Preorder();
+            Console.WriteLine();
+            Console.WriteLine("Сумма = {0}", tree4.OnlyRigthSum());
+            Console.WriteLine();
 
         }
     }
