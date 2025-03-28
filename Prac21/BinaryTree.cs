@@ -156,43 +156,63 @@ namespace Prac21
             }
 
             // Возвращает сумму значений узлов в дереве, имеющих только одно правое поддерево
-            public static object OnlyRigthSum(Node r, object sum)
+            public static int OnlyRigthSum(Node r, int sum)
             {
-                if (r != null)
+                Console.WriteLine("{0} ", r.inf);
+                if (r.left != null)
                 {
-                    Console.WriteLine("{0} ", r.inf);
-                    if (r.left != null)
+                    int sum1 = sum;
+                    sum += OnlyRigthSum(r.left, sum1);
+                    if (r.rigth != null)
                     {
-                        sum = (int)sum + (int)OnlyRigthSum(r.left, sum);
+                        sum += OnlyRigthSum(r.rigth, sum1);
                     }
-                    else if (r.rigth != null)
+                }
+                else if (r.rigth != null)
+                {
+                    Console.WriteLine("имеет только правое поддерево");
+                    sum = sum + OnlyRigthSum(r.rigth, sum);
+                    sum = sum + (int)r.inf;
+                }
+                Console.WriteLine("{0} sum={1}", r.inf, sum);
+                return sum;
+
+                /*if (r != null)
+                {
+                    Console.WriteLine("{0}", r.inf);
+                    if (r.left == null && r.rigth != null)
                     {
                         Console.WriteLine("имеет только правое поддерево");
-                        sum = (int)sum + (int)OnlyRigthSum(r.rigth, sum);
-                        sum = (int)sum + (int)r.inf;
+                        sum += OnlyRigthSum(r.rigth, sum);
+                        sum += (int)r.inf;
+                    }
+                    else
+                    {
+                        sum = OnlyRigthSum(r.left, sum) + OnlyRigthSum(r.rigth, sum);
                     }
                     Console.WriteLine("{0} sum={1}", r.inf, sum);
                 }
-                return sum;
+                return sum;*/
             }
 
             // Возвращает сумму узлов с четным значением, расположенных на k-ом уровне
-            public static object LevelSum(Node r, int level, int curLevel, object sum)
+            public static int LevelSum(Node r, int level, int curLevel, int sum)
             {
                 if (r != null)
                 {
+                    Console.WriteLine("{0} level={1}", r.inf, curLevel);
                     if (curLevel == level)
                     {
                         if ((int)r.inf % 2 == 0)
                         {
-                            Console.WriteLine("{0} на уровне {1} четное", r.inf, curLevel);
-                            sum = (int)sum + (int)r.inf;
+                            Console.WriteLine("на уровне {1} четное", r.inf, curLevel);
+                            sum = sum + (int)r.inf;
                         }
                         return sum;
                     }
                     else
                     {
-                        sum = (int)LevelSum(r.left, level, curLevel++, sum) + (int)LevelSum(r.rigth, level, curLevel++, sum);
+                        sum = LevelSum(r.left, level, curLevel+1, sum) + LevelSum(r.rigth, level, curLevel+1, sum);
                     }
                 }
                 return sum;
@@ -257,6 +277,12 @@ namespace Prac21
         public object OnlyRigthSum()
         {
             return Node.OnlyRigthSum(tree, 0);
+        }
+
+        // Возвращает сумму узлов с четным значением, расположенных на k-ом уровне
+        public object LevelSum(int level)
+        {
+            return Node.LevelSum(tree, level, 1, 0);
         }
     }
 }

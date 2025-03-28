@@ -211,6 +211,14 @@ namespace Prac20
         {
             Node r = head;
             double mean = Mean();
+            if ((int)head.Inf > mean)
+            {
+                Node p = new Node(x);
+                Node temp = head;
+                p.Next = temp;
+                head = p;
+                r = temp;
+            }
             while (r != null)
             {
                 if (r.Next != null && (int)r.Next.Inf > mean)
