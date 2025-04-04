@@ -27,9 +27,29 @@ namespace Prac21
             return tree;
         }
 
+        public static AVLTree ReadAVLTree(string filename)
+        {
+            AVLTree tree = new AVLTree();
+            // Считываем данные из файла в список
+            using (StreamReader fileIn = new StreamReader(@filename))
+            {
+                string line = fileIn.ReadToEnd();
+                char[] sep = { ' ', '\n', '\t', '\r' };
+                string[] data = line.Split(sep);
+                foreach (string item in data)
+                {
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        tree.Add(int.Parse(item));
+                    }
+                }
+            }
+            return tree;
+        }
+
         static void Main(string[] args)
         {
-            BinaryTree tree1 = ReadTree("input1.txt");
+            /*BinaryTree tree1 = ReadTree("input1.txt");
             BinaryTree tree2 = ReadTree("input2.txt");
             BinaryTree tree3 = ReadTree("input3.txt");
             BinaryTree tree4 = ReadTree("input4.txt");
@@ -42,13 +62,13 @@ namespace Prac21
             tree4.Preorder(); Console.WriteLine();
             tree5.Preorder(); Console.WriteLine();
             tree6.Preorder(); Console.WriteLine();
-            Console.WriteLine();
+            Console.WriteLine();*/
 
             /* I. В файле input.txt хранится последовательность целых чисел. По входной
              * последовательности построить дерево бинарного поиска и найти для него:
              * 13. сумму значений узлов в дереве, имеющих только одно правое поддерево.
              */
-            Console.WriteLine("Сумма = {0}", tree1.OnlyRigthSum());
+            /*Console.WriteLine("Сумма = {0}", tree1.OnlyRigthSum());
             Console.WriteLine();
 
             Console.WriteLine("Сумма = {0}", tree2.OnlyRigthSum());
@@ -64,7 +84,7 @@ namespace Prac21
             Console.WriteLine();
 
             Console.WriteLine("Сумма = {0}", tree6.OnlyRigthSum());
-            Console.WriteLine();
+            Console.WriteLine();*/
 
 
             /* II. В файле input.txt хранится последовательность целых чисел. По входной 
@@ -78,10 +98,22 @@ namespace Prac21
             Console.WriteLine();
 
             Console.WriteLine("Сумма = {0}", tree3.LevelSum(5));
-            Console.WriteLine();
+            Console.WriteLine();    
 
             Console.WriteLine("Сумма = {0}", tree4.LevelSum(4));
             Console.WriteLine();*/
+
+
+            /*
+             * III. В файле input.txt хранится последовательность целых чисел. По входной
+             * последовательности построить АВЛ дерево и:
+             * 12. проверить, можно ли удалить какой-то один узел так, чтобы дерево осталось деревом
+             * бинарного поиска и стало идеально сбалансированным (указать удаляемый узел).
+             */
+
+            AVLTree avlTree1 = ReadAVLTree("input1.txt");
+            avlTree1.Preorder(); Console.WriteLine();
+            avlTree1.Count();
         }
     }
 }
