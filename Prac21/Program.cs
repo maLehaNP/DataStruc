@@ -98,7 +98,7 @@ namespace Prac21
             Console.WriteLine();
 
             Console.WriteLine("Сумма = {0}", tree3.LevelSum(5));
-            Console.WriteLine();    
+            Console.WriteLine();
 
             Console.WriteLine("Сумма = {0}", tree4.LevelSum(4));
             Console.WriteLine();*/
@@ -111,9 +111,12 @@ namespace Prac21
              * бинарного поиска и стало идеально сбалансированным (указать удаляемый узел).
              */
 
+            // Добавить 4 поле counter. Должен сначала проверять не уже ли сбалансировано. Проходить искать можно ли удалить только среди листов. Удалять только в конце когда подтвердит что можно, в противном случае вывести что нельзя.
+
             AVLTree avlTree1 = ReadAVLTree("input1.txt");
             avlTree1.Preorder(); Console.WriteLine();
-            avlTree1.Count();
+            Console.WriteLine(avlTree1.Count());
+            Console.WriteLine(avlTree1.IsPerfect());
         }
     }
 }

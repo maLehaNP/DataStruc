@@ -234,7 +234,7 @@ namespace Prac21
             // Проверяет является ли узел идеально сбалансированным.
             public static bool IsPerfect(Node r)
             {
-                return true;
+                return Math.Abs(Count(r.left) - Count(r.rigth)) <= 1;
             }
              
             // Возвращает количество узлов
@@ -242,12 +242,13 @@ namespace Prac21
             {
                 if (r != null)
                 {
-                    int count = Count(r.left) + Count(r.rigth) + 1;
-                    Console.WriteLine("({0} {1}) ", r.inf, r.height);
-                    return count;
+                    // int count = Count(r.left) + Count(r.rigth) + 1;
+                    // Console.WriteLine("({0} {1}) ", r.inf, count);
+                    return Count(r.left) + Count(r.rigth) + 1;
                 }
                 else return 0;
             }
+
         }  //конец вложенного класса
 
         Node tree; //ссылка на корень дерева
@@ -309,6 +310,12 @@ namespace Prac21
         public int Count()
         {
             return Node.Count(tree);
+        }
+
+        // Проверяет является ли узел идеально сбалансированным.
+        public bool IsPerfect()
+        {
+            return Node.IsPerfect(tree);
         }
     }
 }
