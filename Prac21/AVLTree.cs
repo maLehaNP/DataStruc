@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -234,7 +235,19 @@ namespace Prac21
             // Проверяет является ли узел идеально сбалансированным.
             public static bool IsPerfect(Node r)
             {
-                return Math.Abs(Count(r.left) - Count(r.rigth)) <= 1;
+                if (r != null)
+                {
+                    if (Math.Abs(Count(r.left) - Count(r.rigth)) > 1)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return IsPerfect(r.rigth) & IsPerfect(r.left);
+                    }
+                    //Console.WriteLine("({0} {1} {2} {3}) ", r.inf, Count(r.left), Count(r.rigth), ans);
+                }
+                else return true;
             }
              
             // Возвращает количество узлов
@@ -242,8 +255,9 @@ namespace Prac21
             {
                 if (r != null)
                 {
-                    // int count = Count(r.left) + Count(r.rigth) + 1;
-                    // Console.WriteLine("({0} {1}) ", r.inf, count);
+                    //int count = Count(r.left) + Count(r.rigth) + 1;
+                    //Console.Write("({0} {1}) ", r.inf, count);
+                    //return count;
                     return Count(r.left) + Count(r.rigth) + 1;
                 }
                 else return 0;

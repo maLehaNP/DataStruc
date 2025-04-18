@@ -114,8 +114,8 @@ namespace Prac21
             // Добавить 4 поле counter. Должен сначала проверять не уже ли сбалансировано. Проходить искать можно ли удалить только среди листов. Удалять только в конце когда подтвердит что можно, в противном случае вывести что нельзя.
 
             AVLTree avlTree1 = ReadAVLTree("input1.txt");
-            avlTree1.Preorder(); Console.WriteLine();
-            Console.WriteLine(avlTree1.Count());
+            //avlTree1.Preorder(); Console.WriteLine();
+            //Console.WriteLine(avlTree1.Count());
             Console.WriteLine(avlTree1.IsPerfect());
         }
     }
