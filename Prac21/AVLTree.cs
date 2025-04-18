@@ -232,6 +232,19 @@ namespace Prac21
                 }
             }
 
+            // Возвращает количество узлов
+            public static int Count(Node r)
+            {
+                if (r != null)
+                {
+                    //int count = Count(r.left) + Count(r.rigth) + 1;
+                    //Console.Write("({0} {1}) ", r.inf, count);
+                    //return count;
+                    return Count(r.left) + Count(r.rigth) + 1;
+                }
+                else return 0;
+            }
+
             // Проверяет является ли узел идеально сбалансированным.
             public static bool IsPerfect(Node r)
             {
@@ -250,17 +263,58 @@ namespace Prac21
                 else return true;
             }
              
-            // Возвращает количество узлов
-            public static int Count(Node r)
+            public static object Balance(Node r)
             {
-                if (r != null)
+                Node root = r;
+                if (IsPerfect(root))
                 {
-                    //int count = Count(r.left) + Count(r.rigth) + 1;
-                    //Console.Write("({0} {1}) ", r.inf, count);
-                    //return count;
-                    return Count(r.left) + Count(r.rigth) + 1;
+                    Console.WriteLine("Дерево уже идеально сбалансировано.");
+                    return null;
                 }
-                else return 0;
+                else if (Math.Abs(Count(root.left) - Count(root.rigth)) >= 3)
+                {
+                    Console.WriteLine("Дерево невозможно идеально сбалансировать.");
+                    return null;
+                }
+                else
+                {
+                    while (Count(r) > 3)
+                    {
+                        if (Count(r.left) > Count(r.rigth))
+                        {
+                            r = r.left;
+                        }
+                        else
+                        {
+                            r = r.rigth;
+                        }
+                        Console.WriteLine("r=" + r.inf);
+                    }
+                    if (r.left != null)
+                    {
+                        Node temp = r.left;
+                        r.left = null;
+                        if (IsPerfect(root))
+                        {
+                            Console.WriteLine("Теперь дерево идеально сбалансировано.");
+                            return temp.inf;
+                        }
+                        r.left = temp;
+                    }
+                    else if (r.left != null)
+                    {
+                        Node temp = r.rigth;
+                        r.rigth = null;
+                        if (IsPerfect(root))
+                        {
+                            Console.WriteLine("Теперь дерево идеально сбалансировано.");
+                            return temp.inf;
+                        }
+                        r.rigth = temp;
+                    }
+                }
+                Console.WriteLine("Дерево невозможно идеально сбалансировать.");
+                return null;
             }
 
         }  //конец вложенного класса
@@ -330,6 +384,11 @@ namespace Prac21
         public bool IsPerfect()
         {
             return Node.IsPerfect(tree);
+        }
+
+        public object Balance()
+        {
+            return Node.Balance(tree);
         }
     }
 }
