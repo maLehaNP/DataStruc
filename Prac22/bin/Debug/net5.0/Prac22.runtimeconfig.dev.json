@@ -1,9 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\maleha\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\maleha\\.nuget\\packages",
-      "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      "C:\\Users\\maLeha\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\maLeha\\.nuget\\packages"
     ]
   }
 }

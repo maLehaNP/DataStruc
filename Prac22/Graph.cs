@@ -215,7 +215,7 @@ namespace Prac22
             /*public void WayFloyd(int a, int b, int[,] p, ref Queue items)
             {
                 int k = p[a, b];
-                // если k<> -1, то путь состоит более чем из двух вершин а и b, и проходит через
+                // если k <> -1, то путь состоит более чем из двух вершин а и b, и проходит через
                 // вершину k, поэтому
                 if (k != -1)
                 {
@@ -230,7 +230,15 @@ namespace Prac22
             // Добавление новой вершины
             public void AddVertex(int[] out_a, int[] in_a)
             {
-                int n = Size;  // Новый размер
+                int n = Size + 1;
+                if (out_a.Length > n || in_a.Length > n)
+                {
+                    throw new Exception("Списки должны быть длиной " + n);
+                }
+                if (out_a[n - 1] != in_a[n - 1])
+                {
+                    throw new Exception("Последние элементы в обоих списках должны быть одинаковы");
+                }
                 int[,] a = new int[n, n];  // Новая матрица смежности
                 for (int i = 0; i < n - 1; i++)
                 {
@@ -241,15 +249,15 @@ namespace Prac22
                 }
                 for (int j = 0; j < n; j++)
                 {
-                    a[n, j] = out_a[j];  // Заполняем последнюю строку з
+                    Console.WriteLine(j);
+                    a[n - 1, j] = out_a[j];  // Заполняем последнюю строку з
                 }
                 for (int i = 0; i < n; i++)
                 {
-                    a[i, n] = in_a[i];
+                    a[i, n - 1] = in_a[i];
                 }
                 array = a;  // Присваиваем новую матрицу смежности
             }
-
 
         }  // конец вложенного клаcса
 
@@ -301,7 +309,7 @@ namespace Prac22
             Console.WriteLine();
         }*/
 
-        /*public void Dijkstr(int v)
+        public void Dijkstr(int v)
         {
             graph.NovSet(); // помечаем все вершины графа как непросмотренные
             int[] p;
@@ -318,7 +326,7 @@ namespace Prac22
                     {
                         Stack items = new Stack();
                         graph.WayDijkstr(v, i, p, ref items);
-                        while (!items.IsEmpty)
+                        while (items.Count != 0)
                         {
                             Console.Write("{0} ", items.Pop());
                         }
@@ -326,7 +334,7 @@ namespace Prac22
                 }
                 Console.WriteLine();
             }
-        }*/
+        }
 
         /*public void Floyd()
         {
@@ -346,9 +354,11 @@ namespace Prac22
                         }
                         else
                         {
-                            Console.Write("Кратчайший путь от вершины {0} до вершины {1} равен { 2}, ", i, j, a[i,j]);
+                            Console.Write("Кратчайший путь от вершины {0} до вершины {1} равен { 2}, ", i, j, a[i, j]);
                             Console.Write(" путь ");
                             Queue items = new Queue();
+                            Queue sd = new Queue();
+                            sd.
                             items.Add(i);
                             graph.WayFloyd(i, j, p, ref items);
                             items.Add(j);
@@ -366,6 +376,42 @@ namespace Prac22
         public void AddVertex(int[] out_a, int[] in_a)
         {
             graph.AddVertex(out_a, in_a);
+        }
+
+        // Для заданной вершины v выводит на экран соседние вершины
+        public void Neighbouring(int v)
+        {
+            Console.Write("Вершины соседние с {0} вершиной: ", v);
+            //просматриваем строку с номером v в матрице смежности
+            for (int i = 0; i < graph.Size; i++)
+            {
+                //если на пересечении строки v и столбца i стоит не ноль, то вершина i является
+                //соседней для вершины v
+                if (graph[v, i] != 0)
+                {
+                    Console.Write("{0} ", i);
+                }
+            }
+            Console.WriteLine();
+        }
+
+        /*public void IsHaveWay(int v1, int v2, int maxLen)
+        {
+            graph.NovSet(); // Помечаем все вершины графа как непросмотренные
+            int[] p1;
+            long[] d1 = graph.Dijkstr(v1, out p1); // Запускаем алгоритм Дейкстры для первой вершин
+            graph.NovSet();
+            int[] p2;
+            long[] d2 = graph.Dijkstr(v1, out p2); // Запускаем алгоритм Дейкстры для второй вершин
+            Console.WriteLine("Длина кратчайшие пути от вершины {0} до вершины", v1);
+            Console.WriteLine("{0} равна {1}, ", v2, d1[v2]);
+            Console.WriteLine("Длина кратчайшие пути от вершины {0} до вершины", v2);
+            Console.WriteLine("{0} равна {1}, ", v1, d1[v1]);
+        }*/
+
+        public void IsHaveWay(int v1, int v2, int maxLen)
+        {
+
         }
     }
 }
