@@ -227,6 +227,30 @@ namespace Prac22
                 }
             }*/
 
+            // Добавление новой вершины
+            public void AddVertex(int[] out_a, int[] in_a)
+            {
+                int n = Size;  // Новый размер
+                int[,] a = new int[n, n];  // Новая матрица смежности
+                for (int i = 0; i < n - 1; i++)
+                {
+                    for (int j = 0; j < n - 1; j++)
+                    {
+                        a[i, j] = this[i, j];  // Заполняем прошлыми значениями
+                    }
+                }
+                for (int j = 0; j < n; j++)
+                {
+                    a[n, j] = out_a[j];  // Заполняем последнюю строку з
+                }
+                for (int i = 0; i < n; i++)
+                {
+                    a[i, n] = in_a[i];
+                }
+                array = a;  // Присваиваем новую матрицу смежности
+            }
+
+
         }  // конец вложенного клаcса
 
         private Node graph; // закрытое поле, реализующее АТД «граф»
@@ -338,5 +362,10 @@ namespace Prac22
                 }
             }
         }*/
+
+        public void AddVertex(int[] out_a, int[] in_a)
+        {
+            graph.AddVertex(out_a, in_a);
+        }
     }
 }

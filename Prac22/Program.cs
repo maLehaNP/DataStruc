@@ -5,54 +5,17 @@ namespace Prac22
 {
     class Program
     {
-        /*public static BinaryTree ReadTree(string filename)
-        {
-            BinaryTree tree = new BinaryTree();
-            // Считываем данные из файла в список
-            using (StreamReader fileIn = new StreamReader(@filename))
-            {
-                string line = fileIn.ReadToEnd();
-                char[] sep = { ' ', '\n', '\t', '\r' };
-                string[] data = line.Split(sep);
-                foreach (string item in data)
-                {
-                    if (!string.IsNullOrEmpty(item))
-                    {
-                        tree.Add(int.Parse(item));
-                    }
-                }
-            }
-            return tree;
-        }
-
-        public static AVLTree ReadAVLTree(string filename)
-        {
-            AVLTree tree = new AVLTree();
-            // Считываем данные из файла в список
-            using (StreamReader fileIn = new StreamReader(@filename))
-            {
-                string line = fileIn.ReadToEnd();
-                char[] sep = { ' ', '\n', '\t', '\r' };
-                string[] data = line.Split(sep);
-                foreach (string item in data)
-                {
-                    if (!string.IsNullOrEmpty(item))
-                    {
-                        tree.Add(int.Parse(item));
-                    }
-                }
-            }
-            return tree;
-        }*/
-
         static void Main(string[] args)
         {
             /* I. В входном файле указывается количество вершин графа/орграфа и матрица смежности:
              * Для заданного орграфа:
              * 13. добавить новую вершину.
              */
+            Graph g1 = new Graph(@"input1.txt");
 
-            //BinaryTree tree2 = ReadTree("input2.txt");
+            g1.Show();
+            g1.AddVertex(new int[] { 0, 50, 0, 0, 75, 0 }, new int[] { 10, 0, 0, 0, 0, 0 });
+            g1.Show();
         }
     }
 }
