@@ -23,8 +23,8 @@ namespace Prac22
              */
             // Дейкстра ищет минимальный, а нужен любой путь не более L. Поэтому нужно просто искать пути, пока не будет найден нужной длины.
             // Обязательно нужно попробовать из обоих точек в друг друга, т. к. какая-то м. б. не достижима.
-            //g1.Show();
-            //Console.WriteLine("Существует ли путь? - " + g1.IsHaveWay(1, 2, 50));
+            g1.Show();
+            Console.WriteLine("Существует ли путь? - " + g1.IsHaveWay(1, 2, 50));
 
             /* III. Тематические задачи.
              * Во входном файле задается: в первой сторке N – количество городов; начиная со
@@ -37,7 +37,7 @@ namespace Prac22
              */
             // Нужно использовать Флойда
 
-            CoordGraph g2 = new CoordGraph(@"input3.txt");
+            /*CoordGraph g2 = new CoordGraph(@"input3.txt");
             g2.Show();
             Console.WriteLine();
             g2.ShowDistances();
@@ -47,7 +47,7 @@ namespace Prac22
             g2.Optimization(10);
             Console.WriteLine();
             g2.ShowFloyd();
-            Console.WriteLine();
+            Console.WriteLine();*/
         }
     }
 }
