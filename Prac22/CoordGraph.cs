@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace Prac22
 {
-    class CoordGraph2
+    class CoordGraph
     {
         private class Node  // Вложенный класс для скрытия данных и алгоритмов
         {
             private int[,] array;  // Матрица смежности
             private int[,] coords;  // Координаты
+            private double[,] distances;  // Матрица смежности
 
             public int this[int i, int j] // Индексатор для обращения к матрице смежности
             {
@@ -171,7 +172,7 @@ namespace Prac22
             {
                 int i, j, k;
                 // создаем массивы р и а
-                long[,] a = new long[Size, Size];
+                double[,] a = new double[Size, Size];
                 p = new int[Size, Size];
                 for (i = 0; i < Size; i++)
                 {
@@ -183,18 +184,19 @@ namespace Prac22
                         }
                         else
                         {
-                            if (array[i, j] == 0)
+                            if (distances[i, j] == 0)
                             {
                                 a[i, j] = int.MaxValue;
                             }
                             else
                             {
-                                a[i, j] = array[i, j];
+                                a[i, j] = distances[i, j];
                             }
                         }
                         p[i, j] = -1;
                     }
                 }
+
                 // осуществляем поиск кратчайших путей
                 for (k = 0; k < Size; k++)
                 {
@@ -202,7 +204,7 @@ namespace Prac22
                     {
                         for (j = 0; j < Size; j++)
                         {
-                            long distance = a[i, k] + a[k, j];
+                            double distance = a[i, k] + a[k, j];
                             if (a[i, j] > distance)
                             {
                                 a[i, j] = distance;
@@ -280,13 +282,45 @@ namespace Prac22
             public void Optimization(int N)
             {
                 int[,] p;
-                long[,] a = Floyd(out p); // запускаем алгоритм Флойда
+                long[,] f = Floyd(out p); // запускаем алгоритм Флойда
+
+                ShowDistances();
+
                 for (int i = 0; i < Size; i++)
                 {
                     for (int j = 0; j < Size; j++)
                     {
-                        Console.Write("{0,4}", a[i, j]);
+                        Console.Write("{0,4}", f[i, j]);
                     }
+                }
+
+                
+            }
+
+            public void UpdateDistances()
+            {
+                for (int i = 0; i < Size; i++)
+                {
+                    for (int j = 0; j < Size; j++)
+                    {
+                        if (array[i, j] == 1)
+                        {
+                            distances[i, j] = Math.Sqrt(Math.Pow(coords[i, 0] - coords[j, 0], 2) + Math.Pow(coords[i, 1] - coords[j, 1], 2)); ;
+                        }
+                    }
+                }
+            }
+
+            // метод выводит матрицу расстояний на консольное окно
+            public void ShowDistances()
+            {
+                for (int i = 0; i < Size; i++)
+                {
+                    for (int j = 0; j < Size; j++)
+                    {
+                        Console.Write("{0,4}", distances[i, j]);
+                    }
+                    Console.WriteLine();
                 }
             }
 
@@ -294,7 +328,7 @@ namespace Prac22
 
         private Node graph; // закрытое поле, реализующее АТД «граф»
 
-        public CoordGraph2(string name) // конструктор внешнего класса
+        public CoordGraph(string name) // конструктор внешнего класса
         {
             using (StreamReader file = new StreamReader(name))
             {
@@ -319,17 +353,6 @@ namespace Prac22
                         a[i, j] = int.Parse(mas[j]);
                     }
                 }
-
-                /*for (int i = 0; i < n; i++)
-                {
-                    for (int j = 0; j < n; j++)
-                    {
-                        if (a[i, j] == 1)
-                        {
-                            a[i, j] = Math.Sqrt(Math.Pow(c[i, 0] - c[j, 0], 2) + Math.Pow(c[i, 1] - c[j, 1], 2)); ;
-                        }
-                    }
-                }*/
 
                 graph = new Node(a, c);
             }
