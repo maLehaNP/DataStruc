@@ -259,6 +259,21 @@ namespace Prac22
                 array = a;  // Присваиваем новую матрицу смежности
             }
 
+            /*public void IsHaveWay(int v1, int v2, int maxLen)
+            {
+                Console.Write("{0} ", v); // Просматриваем текущую вершину
+                nov[v] = false; // Помечаем ее как просмотренную
+                // В матрице смежности просматриваем строку с номером v
+                for (int u = 0; u < Size; u++)
+                {
+                    // Если вершины v и u смежные, к тому же вершина u не просмотрена,
+                    if (array[v, u] != 0 && nov[u])
+                    {
+                        Dfs(u); // То рекурсивно просматриваем вершину
+                    }
+                }
+            }*/
+
         }  // конец вложенного клаcса
 
         private Node graph; // закрытое поле, реализующее АТД «граф»
@@ -395,7 +410,7 @@ namespace Prac22
             Console.WriteLine();
         }
 
-        /*public void IsHaveWay(int v1, int v2, int maxLen)
+        public void IsHaveWay(int v1, int v2, int maxLen)
         {
             graph.NovSet(); // Помечаем все вершины графа как непросмотренные
             int[] p1;
@@ -407,11 +422,13 @@ namespace Prac22
             Console.WriteLine("{0} равна {1}, ", v2, d1[v2]);
             Console.WriteLine("Длина кратчайшие пути от вершины {0} до вершины", v2);
             Console.WriteLine("{0} равна {1}, ", v1, d1[v1]);
-        }*/
-
-        public void IsHaveWay(int v1, int v2, int maxLen)
-        {
-
         }
+
+        /*public void IsHaveWay(int v1, int v2, int maxLen)
+        {
+            graph.NovSet(); // помечаем все вершины графа как непросмотренные
+            graph.Dfs(v); // запускаем алгоритм обхода графа в глубину
+            Console.WriteLine();
+        }*/
     }
 }
