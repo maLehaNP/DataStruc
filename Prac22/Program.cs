@@ -39,8 +39,8 @@ namespace Prac22
 
             CoordGraph g2 = new CoordGraph(@"input3.txt");
             g2.Show();
-            g2.Optimization(2);
-
+            g2.ShowDistances();
+            g2.Optimization(10);
         }
     }
 }

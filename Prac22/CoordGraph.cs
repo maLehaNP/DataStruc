@@ -53,6 +53,9 @@ namespace Prac22
             {
                 array = a;
                 coords = c;
+                double[,] d = new double[Size, Size];
+                distances = d;
+                UpdateDistances();
                 nov = new bool[a.GetLength(0)];
             }
 
@@ -168,7 +171,7 @@ namespace Prac22
             }
 
             // реализация алгоритма Флойда
-            public long[,] Floyd(out int[,] p)
+            public double[,] Floyd(out int[,] p)
             {
                 int i, j, k;
                 // создаем массивы р и а
@@ -279,22 +282,78 @@ namespace Prac22
                 }
             }*/
 
-            public void Optimization(int N)
+            public bool Optimization(int N)
             {
                 int[,] p;
-                long[,] f = Floyd(out p); // запускаем алгоритм Флойда
 
-                ShowDistances();
+                double[,] a = Floyd(out p); // запускаем алгоритм Флойда
+
+                if (GetMax(a) < N)
+                {
+                    Console.WriteLine("Ничего делать не нужно");
+                    return true;
+                }
 
                 for (int i = 0; i < Size; i++)
                 {
                     for (int j = 0; j < Size; j++)
                     {
-                        Console.Write("{0,4}", f[i, j]);
+                        if (array[i, j] == 0)
+                        {
+                            array[i, j] = 1;
+
+                            UpdateDistances();
+
+                            a = Floyd(out p); // запускаем алгоритм Флойда
+                            double max = GetMax(a);
+
+                            if (max < N)
+                            {
+                                Console.WriteLine("Получилось. Нужно построить дорогу между городами {0} и {1}. Макс расстояние = {2}", i, j, max);
+                                return true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Между городами {0} и {1} не получилось. Макс = {2}", i, j, max);
+                                array[i, j] = 0;
+                            }
+                        }
                     }
                 }
 
-                
+                Console.WriteLine("Ничего не получилось");
+                return false;
+            }
+
+            public bool IsAllLowerThan(double[,] a, int m)
+            {
+                for (int i = 0; i < Size; i++)
+                {
+                    for (int j = 0; j < Size; j++)
+                    {
+                        if (a[i, j] > m)
+                        {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+
+            public double GetMax(double[,] a)
+            {
+                double max = 0;
+                for (int i = 0; i < Size; i++)
+                {
+                    for (int j = 0; j < Size; j++)
+                    {
+                        if (a[i, j] > max)
+                        {
+                            max = a[i, j];
+                        }
+                    }
+                }
+                return max;
             }
 
             public void UpdateDistances()
@@ -305,7 +364,7 @@ namespace Prac22
                     {
                         if (array[i, j] == 1)
                         {
-                            distances[i, j] = Math.Sqrt(Math.Pow(coords[i, 0] - coords[j, 0], 2) + Math.Pow(coords[i, 1] - coords[j, 1], 2)); ;
+                            distances[i, j] = Math.Sqrt(Math.Pow(coords[i, 0] - coords[j, 0], 2) + Math.Pow(coords[i, 1] - coords[j, 1], 2));
                         }
                     }
                 }
@@ -494,6 +553,11 @@ namespace Prac22
         public void Optimization(int N)
         {
             graph.Optimization(N);
+        }
+
+        public void ShowDistances()
+        {
+            graph.ShowDistances();
         }
     }
 }
