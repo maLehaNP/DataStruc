@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 
 namespace Prac22
 {
-    class Graph
+    class CoordGraph2
     {
         private class Node  // Вложенный класс для скрытия данных и алгоритмов
         {
             private int[,] array;  // Матрица смежности
+            private int[,] coords;  // Координаты
+
             public int this[int i, int j] // Индексатор для обращения к матрице смежности
             {
                 get
@@ -46,9 +48,10 @@ namespace Prac22
 
             // Конструктор вложенного класса, инициализирует матрицу смежности и
             // вспомогательный массив
-            public Node(int[,] a)
+            public Node(int[,] a, int[,] c)
             {
                 array = a;
+                coords = c;
                 nov = new bool[a.GetLength(0)];
             }
 
@@ -274,15 +277,38 @@ namespace Prac22
                 }
             }*/
 
+            public void Optimization(int N)
+            {
+                int[,] p;
+                long[,] a = Floyd(out p); // запускаем алгоритм Флойда
+                for (int i = 0; i < Size; i++)
+                {
+                    for (int j = 0; j < Size; j++)
+                    {
+                        Console.Write("{0,4}", a[i, j]);
+                    }
+                }
+            }
+
         }  // конец вложенного клаcса
 
         private Node graph; // закрытое поле, реализующее АТД «граф»
 
-        public Graph(string name) // конструктор внешнего класса
+        public CoordGraph2(string name) // конструктор внешнего класса
         {
             using (StreamReader file = new StreamReader(name))
             {
                 int n = int.Parse(file.ReadLine());
+
+                int[,] c = new int[n, 2];
+                for (int i = 0; i < n; i++)
+                {
+                    string line = file.ReadLine();
+                    string[] mas = line.Split(' ');
+                    c[i, 0] = int.Parse(mas[1]);
+                    c[i, 1] = int.Parse(mas[2]);
+                }
+
                 int[,] a = new int[n, n];
                 for (int i = 0; i < n; i++)
                 {
@@ -293,7 +319,19 @@ namespace Prac22
                         a[i, j] = int.Parse(mas[j]);
                     }
                 }
-                graph = new Node(a);
+
+                /*for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < n; j++)
+                    {
+                        if (a[i, j] == 1)
+                        {
+                            a[i, j] = Math.Sqrt(Math.Pow(c[i, 0] - c[j, 0], 2) + Math.Pow(c[i, 1] - c[j, 1], 2)); ;
+                        }
+                    }
+                }*/
+
+                graph = new Node(a, c);
             }
         }
 
@@ -428,6 +466,11 @@ namespace Prac22
             {
                 return false;
             }
+        }
+
+        public void Optimization(int N)
+        {
+            graph.Optimization(N);
         }
     }
 }
