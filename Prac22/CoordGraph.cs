@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -377,7 +378,7 @@ namespace Prac22
                 {
                     for (int j = 0; j < Size; j++)
                     {
-                        Console.Write("{0,4}", distances[i, j]);
+                        Console.Write("{0,5:f3} ", distances[i, j]);
                     }
                     Console.WriteLine();
                 }
@@ -558,6 +559,22 @@ namespace Prac22
         public void ShowDistances()
         {
             graph.ShowDistances();
+        }
+
+        // метод выводит Флойда на консольное окно
+        public void ShowFloyd()
+        {
+            int[,] p;
+            double[,] a = graph.Floyd(out p); // запускаем алгоритм Флойда
+
+            for (int i = 0; i < graph.Size; i++)
+            {
+                for (int j = 0; j < graph.Size; j++)
+                {
+                    Console.Write("{0,7:f3} ", a[i, j]);
+                }
+                Console.WriteLine();
+            }
         }
     }
 }

@@ -39,8 +39,15 @@ namespace Prac22
 
             CoordGraph g2 = new CoordGraph(@"input3.txt");
             g2.Show();
+            Console.WriteLine();
             g2.ShowDistances();
+            Console.WriteLine();
+            g2.ShowFloyd();
+            Console.WriteLine();
             g2.Optimization(10);
+            Console.WriteLine();
+            g2.ShowFloyd();
+            Console.WriteLine();
         }
     }
 }
